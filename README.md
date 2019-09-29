@@ -11,9 +11,9 @@ Proximamente
 * **Python**: Lenguaje de programación.
 * **Django REST Framework**: Framework de desarrollo para Web APIs.
 * **MongoDB**: Base de datos que nos permitirá trabajar con objetos JSON directamente.
-* **Logs**: Fluentd.
+* **Flientd**: para el manejo de logs.
 * **Travis-CI**: integración continua.
-* **Plataforma de despliegue**: Heroku. Plataforma en la nube que permite trabajar con docker para virtualizar los servicios.
+* **Heroku**: Heroku. Plataforma en la nube que permite trabajar con docker para virtualizar los servicios.
 
 ## Como se usa
 Proximamente.
