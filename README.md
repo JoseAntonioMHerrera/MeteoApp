@@ -1,6 +1,5 @@
 # MeteoApp
-Microservicio que ofrece datos meteorológicos por horas y días en las distintas regiones del páis. Permite tanto el acceso a los datos de forma pública como la modificación de los mismos mediante un identificador verificado.
 
-# Tecnologías usadas en el desarrollo
-* Python
-	* Django REST Framework
+## Descripción general
+
+Este microservicio ofrece el conjunto de operaciones CRUD (Create, Read, Update, Delete) para el manejo de datos metereológicos en las distintas ciudades del país. El objetivo es ofrecer una servicio API RESTful que otorgue el acceso a estos datos de forma pública, así como su edición. Estos datos se proporcionará en formato JSON para un manejo facil de los mismos por parte del usuario.
