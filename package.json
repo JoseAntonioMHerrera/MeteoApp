@@ -1,0 +1,24 @@
+{
+  "name": "MeteoApp",
+  "version": "1.0.0",
+  "description": "Microservicio que ofrece datos meteorológicos por horas y días en las distintas regiones.",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoseAntonioMHerrera/MeteoCheck.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoseAntonioMHerrera/MeteoCheck/issues"
+  },
+  "homepage": "https://github.com/JoseAntonioMHerrera/MeteoCheck#readme",
+  "dependencies": {
+    "@hapi/hapi": "^18.4.0",
+    "@hapi/joi": "^16.1.7"
+  }
+}
