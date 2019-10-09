@@ -17,17 +17,17 @@ test('la respuesta de peticionPOSTDia debería tener error como undefined', ()=>
     expect(respuesta.error).toBe(undefined);
 });
 
-test('la respuesta de peticionGETCiudad debería devolver el objeto JSON {temperaturas_ciudad}', ()=> {
+test('la respuesta de peticionGETCiudad debería devolver el objeto JSON {datos_prueba.temperaturas_ciudad}', ()=> {
     respuesta = controlador.peticionGETCiudad("granada","1995");
     expect(respuesta).toBe(JSON.stringify(datos_prueba.temperaturas_ciudad));
 });
 
-test('la respuesta de peticionGETMes debería devolver el objeto JSON {temperaturas_mes}', ()=> {
+test('la respuesta de peticionGETMes debería devolver el objeto JSON {datos_prueba.temperaturas_ciudad_mes}', ()=> {
     respuesta = controlador.peticionGETMes("granada","1995","5");
     expect(respuesta).toBe(JSON.stringify(datos_prueba.temperaturas_ciudad_mes));
 });
 
-test('la respuesta de peticionGETDia debería devolver el objeto JSON {temperaturas_ciudad_dia}', ()=> {
+test('la respuesta de peticionGETDia debería devolver el objeto JSON {datos_prueba.temperaturas_ciudad_dia}', ()=> {
     respuesta = controlador.peticionGETDia("granada","1995","5","1");
     expect(respuesta).toBe(JSON.stringify(datos_prueba.temperaturas_ciudad_dia));
 });
