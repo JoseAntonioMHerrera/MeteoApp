@@ -66,3 +66,18 @@ exports.peticionGETDia = function(ciudad, anio, mes, dia){
     return JSON.stringify(temperaturas_ciudad_dia);
 
 };
+
+exports.peticionPOSTCiudad = function(payload){
+    let response = Joi.validate(payload,ciudad.ciudad_schema);
+    return (response ? false : true);
+};
+
+exports.peticionPOSTMes = function(payload){
+    let response = Joi.validate(payload,mes.mes_schema);
+    return (response ? false : true);
+};
+
+exports.peticionPOSTDia = function(payload){
+    let response = Joi.validate(payload,dia.dia_schema);
+    return (response ? false : true);        
+}
