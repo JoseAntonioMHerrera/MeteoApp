@@ -14,12 +14,16 @@ server.start(error=> {
     console.log("Escuchando en el puerto 3000");
 });
 
+/*
+* GET /ciudad/{ciudad}/{anio} devuelve todos las temperaturas de la ciudad = {ciudad} en el año = {anio}
+*
+*/
 
 server.route({
     method: "GET",
-    path: "/ciudad/{ciudad}",
+    path: "/ciudad/{ciudad}/{anio}",
     handler: (request,response) => {
-        response("Recibida petición de muestra de ciudad " + request.params.ciudad);
+        response();
     }
 
 });

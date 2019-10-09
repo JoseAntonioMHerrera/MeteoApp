@@ -11,8 +11,8 @@
     "url": "git+https://github.com/JoseAntonioMHerrera/MeteoCheck.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Jose Antonio Muñoz Herrera",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/JoseAntonioMHerrera/MeteoCheck/issues"
   },
