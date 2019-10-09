@@ -13,7 +13,6 @@ test('la respuesta de peticionPOSTMes debería tener error como undefined', ()=>
 
 test('la respuesta de peticionPOSTDia debería tener error como undefined', ()=> {
     respuesta = controlador.peticionPOSTDia(datos_prueba.temperaturas_ciudad_dia);
-    console.log(respuesta);
     expect(respuesta.error).toBe(undefined);
 });
 
