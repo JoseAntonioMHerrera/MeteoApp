@@ -38,7 +38,7 @@ server.route({
     path: "/ciudad/{ciudad}/{anio}/{mes}",
     handler: (reqest, response) => {
         temperaturas_ciudad_mes = controlador.peticionGETMes(request.params.ciudad, request.params.anio, request.params.mes);
-        response(temperaturas_ciudad_mes);
+        return temperaturas_ciudad_mes;
     }
 
 });
@@ -53,7 +53,7 @@ server.route({
     path: "/ciudad/{ciudad}/{anio}/{mes}/{dia}",
     handler: (reqest, response) => {
         temperaturas_ciudad_dia = controlador.peticionGETDia(request.params.ciudad, request.params.anio, request.params.mes, request.params.dia);
-        response(temperaturas_ciudad_dia);        
+        return temperaturas_ciudad_dia;        
     }
 });
 
@@ -67,9 +67,9 @@ server.route({
     path: "/ciudad/nuevo",
     handler: (request,response) => {
         if(controlador.peticionPOSTCiudad(request.payload))
-            response("Ciudad introducida exitosamente.");
+            return "Success /ciudad/nuevo";
         else
-            response("Error al realizar el POST");
+            return "Error /ciudad/nuevo";
     }
 });
 
@@ -83,9 +83,9 @@ server.route({
     path: "/ciudad/dia/nuevo",
     handler: (request,response) => {
         if(controlador.peticionPOSTDia(request.payload))
-            response("Dia introducido exitosamente.");
+            return "Success /ciudad/dia/nuevo";
         else
-            response("Error al realizar el POST");
+            return "Error /ciudad/dia/nuevo";
     }
 });
 
@@ -99,8 +99,8 @@ server.route({
     path: "/ciudad/mes/nuevo",
     handler: (request,response) => {
         if(controlador.peticionPOSTMes(request.payload))
-            response("Mes introducido exitosamente.");
+            return "Success /ciudad/mes/nuevo";
         else
-            response("Error al realizar el POST");
+            return "Error /ciudad/mes/nuevo";
     }
 });
