@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/JoseAntonioMHerrera/MeteoApp.svg?branch=master)](https://travis-ci.org/JoseAntonioMHerrera/MeteoApp)
+[![CircleCI](https://circleci.com/gh/JoseAntonioMHerrera/MeteoApp.svg?style=svg)](https://circleci.com/gh/JoseAntonioMHerrera/MeteoApp)
 # MeteoApp
 
 ## Descripción general
