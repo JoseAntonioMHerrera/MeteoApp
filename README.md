@@ -4,7 +4,7 @@
 
 ## Documentación
 
-[Enlace a la documentación general del proyecto]()
+[Enlace a la documentación general del proyecto](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/MeteoApp.md)
 
 ## Especificación de los esquemas JSON
 
