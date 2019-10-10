@@ -2,28 +2,25 @@
 [![CircleCI](https://circleci.com/gh/JoseAntonioMHerrera/MeteoApp.svg?style=svg)](https://circleci.com/gh/JoseAntonioMHerrera/MeteoApp)
 # MeteoApp
 
-## Descripción general
+## Documentación
 
-Este microservicio ofrece el conjunto de operaciones CRUD (Create, Read, Update, Delete) para el manejo de datos metereológicos en las distintas ciudades del país. El objetivo es ofrecer una servicio API RESTful que otorgue el acceso a estos datos de forma pública, así como su edición. Estos datos se proporcionará en formato JSON para un manejo facil de los mismos por parte del usuario. Idealmente, este microservicio formaría parte de una infraestructura mas grande donde los usuarios podrían bien ser otros microservicios que podrían formar parte tanto como origen de los datos como servidores de los mismos.
+[Enlace a la documentación general del proyecto]()
 
-## Pasos de desarrollo
+## Especificación de los esquemas JSON
 
-El microservicio se llevará a cabo en el lenguaje javascript, usando para ello Node.js. Sobre Node.js usaremos el framework Hapi.js, que junto a su módulo Joi nos permitirá crear un microservicio con validación de objetos JSON. La base de datos que usaremos para suplir la necesidad de un sitio de donde extraer los datos será MongoBD, que nos permitirá trabajar con objetos JSON. Siguiendo las buenas praácticas para el desarrollo, de los primeros pasos será establecer y configurar una plataforma de integración continua como Travis-CI que nos ayudará a testear los cambios a los largo de todo el desarrollo, en conjunción con Jest, un framework de testing para javascript. Para desplegar el microservicio en la nube nos decantaremos en princpio por Heroku, un PaaS que en principio no nos requerirá ninguna tecnología de virtualización extra (uso con Github), aunque es posible usarlo también con Dockers si ese fuera el caso en la situación que quisieramos por ejemplo desplegar la base de datos por separado.
+En este microservicio se planea en un futuro almacenar objetos JSON referentes a las temperaturas de una ciudad en un día concreto. Con la ayuda de la librería de validación de JSON, **joi**, los campos de los objetos JSON a partir de los cuales se puede introducir o editar información de la base de datos mediante peticiones POST/PUT son los siguientes:
 
-## Guía de instalación
+- **Ciudad**: Una ciudad se compone de un nombre. 
+- **Mes**: Un mes se compone de un nombre de ciudad, un año, un número de mes y una lista de días.
+- **Día**: Un día se compone de un nombre de ciudad, un año, un número de mes un número de dìa y tres temperaturas correspondiendo con las horas 8:00, 14:00 y 21:00.
 
-Proximamente.
+La estructura de los objetos JSON que podemos conseguir mediante peticiones GET son los siguientes:
 
-## Tecnologías
+- **Ciudad**: Una ciudad se compondrá de un año, con las consiguientes temperaturas de ese año.
+- **Mes**: Un mes se compondrá de una ciudad, un año, un número de mes, los días de ese mes y las temperaturas de esos días.
+- **Día**: Un día se compondrá de un nombre de ciudad, un año, un número de mes, un número de día y las temperaturas de ese día.
 
-* **Javascript**: Lenguaje de programación.
-* **Node.js**: Entorno de desarrollo para javascript enfocado principalmente en el backend.
-* **Hapi.js**: Framework para el desarrollo de web APIs. Usaremos además su módulo **Joi** para la validación de objetos JSON.
-* **MongoDB**: Base de datos que nos permitirá trabajar con objetos JSON directamente.
-* **Fluentd**: para el manejo de logs.
-* **Travis-CI**: integración continua.
-* **Jest**: framework de testing.
-* **Heroku**: Plataforma en la nube que permite trabajar con docker para virtualizar los servicios.
+## Tests: controlador.js
 
-## Como se usa
-Proximamente.
+Los tests se han ejecutado sobre las funciones de controlador.js, el cual se encarga de conectar con la base de datos para dar servicio a las peticiones y, en caso necesario, validar la estructura de los objetos JSON que se envían en caso de las peticiones POST/PUT.
+
