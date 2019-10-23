@@ -4,6 +4,7 @@
   "description": "Microservicio que ofrece datos meteorológicos por horas y días en las distintas regiones.",
   "main": "src/app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "jest"
   },
   "repository": {
@@ -19,7 +20,9 @@
   "homepage": "https://github.com/JoseAntonioMHerrera/MeteoCheck#readme",
   "dependencies": {
     "@hapi/hapi": "^18.4.0",
-    "@hapi/joi": "^16.1.7",
+    "@hapi/joi": "^16.1.7"
+  },
+  "devDependencies": {
     "jest": "^24.9.0"
   }
 }
