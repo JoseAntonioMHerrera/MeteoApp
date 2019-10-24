@@ -5,5 +5,5 @@ module.exports = {
         hora_08: Joi.number().required(),
         hora_14: Joi.number().required(),
         hora_21: Joi.number().required()
-    })
+    }).label("Temperaturas")
 }
