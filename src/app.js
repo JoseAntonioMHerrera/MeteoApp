@@ -1,16 +1,45 @@
 const hapi = require("@hapi/hapi");
+const inert = require("@hapi/inert");
+const vision = require("@hapi/vision");
+const hapiswagger = require("hapi-swagger");
+const Joi = require("@hapi/joi");
+
+const ciudad = require("./ciudad-schema");
+const dia = require("./dia-schema");
+const mes = require("./mes-schema");
+
 const controlador = require("./controlador.js");
+
+process.title = "meteoapp";
+
+const optswagger = {
+    info:{
+        title: "Documentación MeteoApp API",
+        version: "v0.1"
+    },
+    definitionPrefix: "useLabel",
+    reuseDefinitions: "false"
+}
 
 const server = new hapi.server({
     "host":"localhost",
     "port": 3000
 });
 
-server.start(error=> {
-    if(error){
-        throw error;
+server.register([
+    inert,
+    vision,
+    {
+        plugin: hapiswagger,
+        options: optswagger
     }
-    console.log("Escuchando en el puerto 3000");
+]).then(()=>{
+    server.start(error=> {
+        if(error){
+            throw error;
+        }
+        console.log("Escuchando en el puerto 3000");
+    });
 });
 
 /*
@@ -20,13 +49,24 @@ server.start(error=> {
 
 server.route({
     method: "GET",
-    path: "/ciudad/{ciudad}/{anio}",
-    handler: (request,reply) => {
-        temperaturas_ciudad = controlador.peticionGETCiudad(request.params.ciudad, request.params.anio);
-        return temperaturas_ciudad;
+    path: "/meteo/{ciudad}/{anio}",
+    options:{
+        description: "Devuelve las temperaturas en el año {anio} de la ciudad {ciudad}",
+        notes: "Retorna un objeto JSON con las temperaturas de un año concreto en una ciudad",
+        tags: ['api'],
+        validate:{
+            params:{
+                ciudad: Joi.string().min(3),
+                anio: Joi.number().integer().min(2000)
+            }
+        },
+        handler: (request,reply) => {
+            temperaturas_ciudad_anio = controlador.peticionCiudad(request.params.ciud, request.params.anio);
+            reply(temperaturas_ciudad_anio);
+        }
     }
-
 });
+
 
 /*
 * GET /ciudad/{ciudad}/{anio}/{mes} devuelve todos las temperaturas de la ciudad = {ciudad} en el año = {anio} en el mes = {mes}
@@ -35,10 +75,23 @@ server.route({
 
 server.route({
     method: "GET",
-    path: "/ciudad/{ciudad}/{anio}/{mes}",
-    handler: (reqest, response) => {
-        temperaturas_ciudad_mes = controlador.peticionGETMes(request.params.ciudad, request.params.anio, request.params.mes);
-        return temperaturas_ciudad_mes;
+    path: "/meteo/{ciudad}/{anio}/{mes}",
+    options: {
+        description: "Devuelve las temperaturas en el mes {mes} del año {anio} de la ciudad {ciudad}",
+        notes: "Retorna un objeto JSON con las temperaturas de un mes de un año concreto en una ciudad",
+        tags: ['api'],
+        validate:{
+            params:{
+                ciudad: Joi.string().min(3),
+                anio: Joi.number().integer().min(2000),
+                mes: Joi.number().integer().min(1).max(12)
+            }
+        },
+        handler: (request, reply) => {
+            temperaturas_ciudad_mes = controlador.peticionMes(request.params.ciudad, request.params.anio, request.params.mes);
+            reply(temperaturas_ciudad_dia);
+    
+        }
     }
 
 });
@@ -50,10 +103,23 @@ server.route({
 
 server.route({
     method: "GET",
-    path: "/ciudad/{ciudad}/{anio}/{mes}/{dia}",
-    handler: (reqest, response) => {
-        temperaturas_ciudad_dia = controlador.peticionGETDia(request.params.ciudad, request.params.anio, request.params.mes, request.params.dia);
-        return temperaturas_ciudad_dia;        
+    path: "/meteo/{ciudad}/{anio}/{mes}/{dia}",
+    options: {
+        description: "Devuelve las temperaturas en el día {dia} en el mes {mes} del año {anio} de la ciudad {ciudad}",
+        notes: "Retorna un objeto JSON con las temperaturas de un día perteneciente a un mes de un año concreto en una ciudad",
+        tags: ['api'],
+        validate:{
+            params:{
+                ciudad: Joi.string().min(3),
+                anio: Joi.number().integer().min(2000),
+                mes: Joi.number().integer().min(1).max(12),
+                dia: Joi.number().integer().min(1).max(31)
+            }
+        },
+        handler: (request, reply) => {
+            temperaturas_ciudad_dia = controlador.peticionDia(request.params.ciudad, request.params.anio, request.params.mes, request.params.dia);
+            reply(temperaturas_ciudad_dia);
+        }
     }
 });
 
@@ -64,12 +130,25 @@ server.route({
 
 server.route({
     method: "POST",
-    path: "/ciudad/nuevo",
-    handler: (request,response) => {
-        if(controlador.peticionPOSTCiudad(request.payload))
-            return "Success /ciudad/nuevo";
-        else
-            return "Error /ciudad/nuevo";
+    path: "/meteo/ciudad/",
+    options: {
+        description: "Realiza una inserción del objeto JSON ciudad que contiene un nombre de ciudad y un array de años.",
+        notes: "Retorna un código 200 OK si la inserción ha sido exitosa.",
+        tags: ['api'],
+        validate:{
+            payload:{
+                ciudad: ciudad.ciudad_schema
+            }
+        },
+        response:{
+            schema: Joi.number().integer().valid(201,500)
+        },
+        handler: (request,reply) => {
+            if(controlador.insertarCiudad(request.payload))
+                reply().code(201);
+            else
+                reply().code(500);
+        }
     }
 });
 
@@ -80,12 +159,25 @@ server.route({
 
 server.route({
     method: "POST",
-    path: "/ciudad/dia/nuevo",
-    handler: (request,response) => {
-        if(controlador.peticionPOSTDia(request.payload))
-            return "Success /ciudad/dia/nuevo";
-        else
-            return "Error /ciudad/dia/nuevo";
+    path: "/meteo/dia",
+    options: {
+        description: "Realiza una inserción del objeto JSON día que contiene un nombre de ciudad, un número de año, un número de mes, un número de día y las temperaturas de ese día.",
+        notes: "Retorna un código 200 OK si la inserción ha sido exitosa.",
+        tags: ['api'],
+        validate:{
+            payload:{
+                dia: dia.dia_schema
+            }
+        },
+        response:{
+            schema: Joi.number().integer().valid(201,500)
+        },
+        handler: (request,reply) => {
+            if(controlador.insertarDia(request.payload))
+                reply().code(201);
+            else
+                reply().code(500);
+        }
     }
 });
 
@@ -96,11 +188,24 @@ server.route({
 
 server.route({
     method: "POST",
-    path: "/ciudad/mes/nuevo",
-    handler: (request,response) => {
-        if(controlador.peticionPOSTMes(request.payload))
-            return "Success /ciudad/mes/nuevo";
-        else
-            return "Error /ciudad/mes/nuevo";
+    path: "/meteo/mes",
+    options: {
+        description: "Realiza una inserción del objeto JSON día que contiene un nombre de ciudad, un número de año, un número de mes, y un array de días.",
+        notes: "Retorna un código 200 OK si la inserción ha sido exitosa.",
+        tags: ['api'],
+        validate:{
+            payload:{
+                mes: mes.mes_schema
+            }
+        },
+        response:{
+            schema: Joi.number().integer().valid(201,500)
+        },
+        handler: (request,reply) => {
+            if(controlador.insertarTMes(request.payload))
+                reply().code(201);
+            else
+                reply().code(500);
+        }
     }
 });
