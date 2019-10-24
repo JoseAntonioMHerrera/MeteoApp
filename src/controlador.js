@@ -3,7 +3,7 @@ const dia = require("./dia-schema");
 const mes = require("./mes-schema")
 const ciudad = require("./ciudad-schema");
 
-exports.peticionGETCiudad = function(nombre_ciudad, anio){
+exports.peticionCiudad = function(nombre_ciudad, anio){
     
     temperaturas_ciudad = {
         "ciudad": "Granada",
@@ -61,7 +61,7 @@ exports.peticionGETCiudad = function(nombre_ciudad, anio){
     return JSON.stringify(temperaturas_ciudad);
 };
 
-exports.peticionGETMes = function(ciudad, anio, mes){
+exports.peticionMes = function(ciudad, anio, mes){
 
     temperaturas_ciudad_mes = {
         "ciudad": "Granada",
@@ -101,7 +101,7 @@ exports.peticionGETMes = function(ciudad, anio, mes){
     return JSON.stringify(temperaturas_ciudad_mes);
 };
 
-exports.peticionGETDia = function(ciudad, anio, mes, dia){
+exports.peticionDia = function(ciudad, anio, mes, dia){
     
     temperaturas_ciudad_dia = {
         "ciudad": "Granada",
@@ -123,17 +123,17 @@ exports.peticionGETDia = function(ciudad, anio, mes, dia){
 
 };
 
-exports.peticionPOSTCiudad = function(payload){
+exports.insertarCiudad = function(payload){
     let response = ciudad.ciudad_schema.validate(payload);
     return response;
 };
 
-exports.peticionPOSTMes = function(payload){
+exports.insertarMes = function(payload){
     let response = mes.mes_schema.validate(payload);
     return response;
 };
 
-exports.peticionPOSTDia = function(payload){
+exports.insertarDia = function(payload){
     let response = dia.dia_peticionschema.validate(payload);
     return response;        
-}
+};
