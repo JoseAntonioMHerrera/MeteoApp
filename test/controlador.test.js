@@ -2,12 +2,25 @@ const assert = require('chai').assert;
 const controlador = require("../src/controlador.js");
 const datos_prueba = require("./datos.js");
 const mongoose = require("../src/db.js");
+const ciudad_model = require("../models/ciudad_model.js");
 
 after(function(done){
     mongoose.mongoose_db.close();
     done();
 });
 
+before(function(done){
+    try{
+        ciudad_model.ciudad_model_mongo.deleteMany({},function(error){
+            if(error)
+                console.log(error);
+            done();
+        });
+    }catch(error){
+        console.log(error);
+    }
+});
+/*
 describe('Test de inserción de ciudad.', ()=>{
     it('La inserción de una ciudad debe retornar {}', function(done){
         let promesa_respuesta  = controlador.insertarCiudad(datos_prueba.temperaturas_granada);
@@ -24,8 +37,8 @@ describe('Test de inserción de ciudad.', ()=>{
 
 describe('Test de inserción de año.', ()=> {
     it('La inserción de un año debe retornar {}', function(done){
-        let promesa_respuesta = controlador.insertarAnio(datos_prueba.temperaturas_granada_2018);
-        promesa_respuesta.then(function(respuesta){
+        let promesa_insercion_anio = controlador.insertarAnio(datos_prueba.temperaturas_granada_2018);
+        promesa_insercion_anio.then(function(respuesta){
             try{
                 assert.isEmpty(respuesta,"Error: " + respuesta.value);
                 done();
@@ -119,7 +132,7 @@ describe('Test de lectura de día', ()=>{
         });
     });
 });
-
+*/
 describe('Test de edición de ciudad.', ()=>{
     it('La edición de una ciudad debe retornar {}', function(done){
         let promesa_respuesta  = controlador.actualizarCiudad(datos_prueba.temperaturas_granada_2);

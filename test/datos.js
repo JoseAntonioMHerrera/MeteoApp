@@ -3,7 +3,7 @@ module.exports = {
         "ciudad": "Granada",
         "anios":[
             {
-                "num_anio": "2019",
+                "num_anio": 2019,
                 "meses": [
                     {
                         "num_mes":12,
