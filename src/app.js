@@ -7,6 +7,9 @@ const Joi = require("@hapi/joi");
 const ciudad = require("./ciudad-schema");
 const dia = require("./dia-schema");
 const mes = require("./mes-schema");
+const anio = require("./anio_schema");
+
+const ciudad_model = require('../models/ciudad_model');
 
 const controlador = require("./controlador.js");
 
@@ -44,8 +47,33 @@ server.register([
 
 /*
 * GET /ciudad/{ciudad}/{anio} devuelve todos las temperaturas de la ciudad = {ciudad} en el año = {anio}
-*
+* ISSUE: response IS NOT A FUNCTION
 */
+
+server.route({
+    method: "GET",
+    path: "/meteo/{ciudad}",
+    options:{
+        description: "Devuelve las temperaturas de todos los años de la ciudad {ciudad}",
+        notes: "Retorna un objeto JSON con las temperaturas de una ciudad en todos sus años",
+        tags: ['api'],
+        validate:{
+            params:{
+                ciudad: Joi.string().min(3)
+            }
+        },response:{
+            schema: ciudad.ciudad_schema
+        }
+    },
+    handler: async (request,h) => {
+        var ciudad = await controlador.peticionCiudad(request.params.ciudad);
+        if(ciudad != null){
+            return h.response(ciudad).code(200);
+        }else{
+            return h.response().code(404);
+        }
+    }
+});
 
 server.route({
     method: "GET",
@@ -60,9 +88,16 @@ server.route({
                 anio: Joi.number().integer().min(2000)
             }
         },
-        handler: (request,reply) => {
-            temperaturas_ciudad_anio = controlador.peticionCiudad(request.params.ciud, request.params.anio);
-            reply(temperaturas_ciudad_anio);
+        response:{
+            schema: anio.anio_schema
+        },
+    },
+    handler: async (request,h) => {
+        temperaturas_ciudad_anio = await controlador.peticionCiudad(request.params.ciud, request.params.anio);
+        if(temperaturas_ciudad_anio != null){
+            return h.response(temperaturas_ciudad_anio).code(200);
+        }else{
+            return h.response().code(404);
         }
     }
 });
@@ -87,13 +122,18 @@ server.route({
                 mes: Joi.number().integer().min(1).max(12)
             }
         },
-        handler: (request, reply) => {
-            temperaturas_ciudad_mes = controlador.peticionMes(request.params.ciudad, request.params.anio, request.params.mes);
-            reply(temperaturas_ciudad_dia);
-    
+        response: {
+            schema: mes.mes_schema
+        }
+    },
+    handler: async (request, h) => {
+        temperaturas_ciudad_mes = await controlador.peticionMes(request.params.ciudad, request.params.anio, request.params.mes);
+        if(temperaturas_ciudad_mes != null){
+            return h.response(temperaturas_ciudad_mes).code(200);
+        }else{
+            return h.response().code(404);
         }
     }
-
 });
 
 /*
@@ -116,9 +156,16 @@ server.route({
                 dia: Joi.number().integer().min(1).max(31)
             }
         },
-        handler: (request, reply) => {
-            temperaturas_ciudad_dia = controlador.peticionDia(request.params.ciudad, request.params.anio, request.params.mes, request.params.dia);
-            reply(temperaturas_ciudad_dia);
+        response: {
+            schema: dia.dia_schema
+        }
+    },
+    handler: async (request, h) => {
+        temperaturas_ciudad_dia = await controlador.peticionDia(request.params.ciudad, request.params.anio, request.params.mes, request.params.dia);
+        if(temperaturas_ciudad_dia != null){
+            return h.response(temperaturas_ciudad_dia).code(200);
+        }else{
+            return h.response().code(404);
         }
     }
 });
@@ -133,50 +180,48 @@ server.route({
     path: "/meteo/ciudad/",
     options: {
         description: "Realiza una inserción del objeto JSON ciudad que contiene un nombre de ciudad y un array de años.",
-        notes: "Retorna un código 200 OK si la inserción ha sido exitosa.",
+        notes: "Retorna un código 201 OK si la inserción ha sido exitosa.",
         tags: ['api'],
         validate:{
             payload:{
                 ciudad: ciudad.ciudad_schema
             }
-        },
-        response:{
-            schema: Joi.number().integer().valid(201,500)
-        },
-        handler: (request,reply) => {
-            if(controlador.insertarCiudad(request.payload))
-                reply().code(201);
-            else
-                reply().code(500);
+        }
+    },
+    handler: async (request, h) => {
+        resultado = await controlador.insertarCiudad(request.payload.ciudad);
+        if(resultado.error){
+            return h.response(resultado).code(400);
+        }else{
+            return h.response().code(201);
         }
     }
 });
 
 /*
 *
-* POST /ciudad/dia/nuevo añade las temperaturas de un día a un mes, año y ciudad concretos
+* POST /ciudad/nuevo añade una ciudad vacia a la base de datos
 */
 
 server.route({
     method: "POST",
-    path: "/meteo/dia",
+    path: "/meteo/anio",
     options: {
-        description: "Realiza una inserción del objeto JSON día que contiene un nombre de ciudad, un número de año, un número de mes, un número de día y las temperaturas de ese día.",
-        notes: "Retorna un código 200 OK si la inserción ha sido exitosa.",
+        description: "Realiza una inserción del objeto JSON anio que contiene un nombre de ciudad, un número de año y un array de meses.",
+        notes: "Retorna un código 201 OK si la inserción ha sido exitosa.",
         tags: ['api'],
         validate:{
             payload:{
-                dia: dia.dia_schema
+                anio: anio.anio_schema_peticion
             }
-        },
-        response:{
-            schema: Joi.number().integer().valid(201,500)
-        },
-        handler: (request,reply) => {
-            if(controlador.insertarDia(request.payload))
-                reply().code(201);
-            else
-                reply().code(500);
+        }
+    },
+    handler: async (request,h) => {
+        resultado= await controlador.insertarAnio(request.payload.anio);
+        if(resultado.error){
+            return h.response(resultado).code(400);
+        }else{
+            return h.response().code(201);
         }
     }
 });
@@ -191,21 +236,49 @@ server.route({
     path: "/meteo/mes",
     options: {
         description: "Realiza una inserción del objeto JSON día que contiene un nombre de ciudad, un número de año, un número de mes, y un array de días.",
-        notes: "Retorna un código 200 OK si la inserción ha sido exitosa.",
+        notes: "Retorna un código 201 OK si la inserción ha sido exitosa.",
         tags: ['api'],
         validate:{
             payload:{
-                mes: mes.mes_schema
+                mes: mes.mes_schema_peticion
             }
-        },
-        response:{
-            schema: Joi.number().integer().valid(201,500)
-        },
-        handler: (request,reply) => {
-            if(controlador.insertarTMes(request.payload))
-                reply().code(201);
-            else
-                reply().code(500);
+        }
+    },
+    handler: async (request,h) => {
+        resultado = await controlador.insertarMes(request.payload.mes);
+        if(resultado.error){
+            return h.response(resultado.value).code(400);
+        }else{
+            return h.response(resultado.value).code(201);
+        }
+
+    }
+});
+
+/*
+*
+* POST /ciudad/dia/nuevo añade las temperaturas de un día a un mes, año y ciudad concretos
+*/
+
+server.route({
+    method: "POST",
+    path: "/meteo/dia",
+    options: {
+        description: "Realiza una inserción del objeto JSON día que contiene un nombre de ciudad, un número de año, un número de mes, un número de día y las temperaturas de ese día.",
+        notes: "Retorna un código 201 OK si la inserción ha sido exitosa.",
+        tags: ['api'],
+        validate:{
+            payload:{
+                dia: dia.dia_schema_peticion
+            }
+        }
+    },
+    handler: (request,h) => {
+        resultado= controlador.insertarDia(request.payload.dia);
+        if(resultado.error){
+            return h.response(resultado).code(400);
+        }else{
+            return h.response().code(201);
         }
     }
 });
