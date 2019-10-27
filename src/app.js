@@ -52,6 +52,14 @@ server.register([
 
 server.route({
     method: "GET",
+    path: "/status",
+    handler: (request,h) =>{
+        return h.response({"status":"OK"});
+    }
+});
+
+server.route({
+    method: "GET",
     path: "/meteo/{ciudad}",
     options:{
         description: "Devuelve las temperaturas de todos los años de la ciudad {ciudad}",
