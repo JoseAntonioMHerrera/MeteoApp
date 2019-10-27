@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:12.11.1
+      - image: circleci/mongo:xenial
     steps:
     - checkout
     - run: npm install
