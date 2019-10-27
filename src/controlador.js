@@ -4,12 +4,10 @@ const ciudad_model = require("../models/ciudad_model.js");
 const moongose = require("./db.js");
 
 exports.peticionCiudad = async function(ciudad){
-    var ciudad = await ciudad_model.ciudad_model_mongo.findOne({'ciudad':ciudad}, function(error,ciudad){
+    var ciudad = await ciudad_model.ciudad_model_mongo.findOne({'ciudad':ciudad},{'_id':0}, function(error,ciudad){
         if(error){
             resultado_busqueda = {'error': true, 'value': error};
-            return; 
         }
-        return ciudad;
     });
     return ciudad;
 };
@@ -25,6 +23,7 @@ exports.peticionAnio = async function(ciudad, num_anio){
         for(i=0; i < ciudad.anios.length; i++){
             if(ciudad.anios[i].num_anio == num_anio){
                 resultado_busqueda = ciudad.anios[i];
+                return;
             }
         }
     });
@@ -35,6 +34,7 @@ exports.peticionMes = async function(ciudad, num_anio, num_mes){
     var resultado_busqueda = null;
     await ciudad_model.ciudad_model_mongo.findOne({'ciudad':ciudad}, function(error,ciudad){
         if(error){
+            console.log(error);
             resultado_busqueda = {'error': true, 'value': error};
             return; 
         }
@@ -45,6 +45,7 @@ exports.peticionMes = async function(ciudad, num_anio, num_mes){
                 for(j=0; j < ciudad.anios[i].meses.length; j++){
                     if(ciudad.anios[i].meses[j].num_mes == num_mes){
                         resultado_busqueda = ciudad.anios[i].meses[j];
+                        return;
                     }
                 }
             }
@@ -70,6 +71,7 @@ exports.peticionDia = async function(ciudad, num_anio, num_mes, num_dia){
                         for(k=0; k < ciudad.anios[i].meses[j].dias.length; k++){
                             if(ciudad.anios[i].meses[j].dias[k].num_dia == num_dia){
                                 resultado_busqueda = ciudad.anios[i].meses[j].dias[k];
+                                return;
                             }
                         }
                     }
@@ -83,26 +85,21 @@ exports.peticionDia = async function(ciudad, num_anio, num_mes, num_dia){
 exports.insertarCiudad = async function(payload){
     var resultado_insercion = {};
 
-    await ciudad_model.ciudad_model_mongo.findOne({"ciudad":payload.ciudad}, "ciudad", function(err, ciudad){
+    await ciudad_model.ciudad_model_mongo.findOne({"ciudad":payload.ciudad}, "ciudad", async function(err, ciudad){
         if(err){
             return false;
         }else{
             if(ciudad == null){
-                var ciudad_creada = ciudad_model.ciudad_model_mongo.create({
+                var ciudad_creada = await ciudad_model.ciudad_model_mongo.create({
                     ciudad: payload.ciudad,
                     anios: payload.anios
-                },function(error, resultado){
-                    if(error){
+                });
+                await ciudad_creada.save(function (erro,resultad) {
+                    if (erro){
                         resultado_insercion = {'error': true, 'value':error};
                         return;
-                    }
-                    resultado.save(function (erro,resultad) {
-                        if (erro){
-                            resultado_insercion = {'error': true, 'value':error};
-                            return;
-                        } 
-                    }); 
-                });
+                    } 
+                }); 
             }else{
                 resultado_insercion = {'error':true,'value':"La ciudad proporcionada ya existe."};
                 return;
@@ -115,35 +112,35 @@ exports.insertarCiudad = async function(payload){
 
 exports.insertarAnio = async function(payload){
     var resultado_insercion = {};
-
-        await ciudad_model.ciudad_model_mongo.findOne({"ciudad":payload.ciudad}, async function(err, ciudad){
-            if(err){
-                return false;
-            }else{
-                if(ciudad != null){
-                    let i;
-                    for(i=0; i < ciudad.anios.length; i++){
-                        if(ciudad.anios[i].num_anio == payload.num_anio){
-                            resultado_insercion = {'error':true,'value':"Ya existe el año proporcionado."};
-                            return;
-                        }
+    console.log("la ciudad es" + payload.ciudad);
+    await ciudad_model.ciudad_model_mongo.findOne({"ciudad":payload.ciudad}, async function(err, ciudad){
+        if(err){
+            return false;
+        }else{
+            if(ciudad != null){
+                let i;
+                for(i=0; i < ciudad.anios.length; i++){
+                    if(ciudad.anios[i].num_anio == payload.num_anio){
+                        resultado_insercion = {'error':true,'value':"Ya existe el año proporcionado."};
+                        return;
                     }
-                    ciudad.anios.push({'num_anio':payload.num_anio, 'meses':payload.meses});
-                    await ciudad.save(function(error_guardado, resultado){
-                        if(error_guardado){
-                            resultado_insercion = {'error':true,'value':error_guardado};
-                            return;
-                        }
-                    
-                    });
-                }else{
-                    resultado_insercion = {'error':true,'value':"No existe la ciudad proporcionada."};
-                    return;
                 }
+                ciudad.anios.push({'num_anio':payload.num_anio, 'meses':payload.meses});
+                await ciudad.save(function(error_guardado, resultado){
+                    if(error_guardado){
+                        resultado_insercion = {'error':true,'value':error_guardado};
+                        return;
+                    }
+                
+                });
+            }else{
+                resultado_insercion = {'error':true,'value':"No existe la ciudad proporcionada."};
+                return;
             }
-        });
-    
-        return resultado_insercion;   
+        }
+    });
+
+    return resultado_insercion;   
 }
 
 exports.insertarMes = async function(payload){
@@ -171,6 +168,7 @@ exports.insertarMes = async function(payload){
                                 resultado_insercion = {'error': true, 'value': error_guardado};
                                 return;
                             }
+
                         });
                         return;
                     }
