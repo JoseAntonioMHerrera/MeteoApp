@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/app.js",
     "test": "mocha -R spec",
-    "stop": "kill -2 $(pidof meteoapp)"
+    "stop": "kill -2 $(pidof meteoapp)",
+    "dev": "NODE_ENV=test nodemon --exec npm start"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
   },
   "homepage": "https://github.com/JoseAntonioMHerrera/MeteoCheck#readme",
   "dependencies": {
-    "@hapi/hapi": "^18.3.2",
+    "@hapi/hapi": "^18.4.0",
     "@hapi/inert": "^5.2.2",
     "@hapi/joi": "^15.1.1",
     "@hapi/vision": "^5.5.4",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4"
   }
 }
