@@ -20,7 +20,7 @@ before(function(done){
         console.log(error);
     }
 });
-/*
+
 describe('Test de inserción de ciudad.', ()=>{
     it('La inserción de una ciudad debe retornar {}', function(done){
         let promesa_respuesta  = controlador.insertarCiudad(datos_prueba.temperaturas_granada);
@@ -132,7 +132,7 @@ describe('Test de lectura de día', ()=>{
         });
     });
 });
-*/
+
 describe('Test de edición de ciudad.', ()=>{
     it('La edición de una ciudad debe retornar {}', function(done){
         let promesa_respuesta  = controlador.actualizarCiudad(datos_prueba.temperaturas_granada_2);
