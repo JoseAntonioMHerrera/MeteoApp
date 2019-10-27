@@ -1,7 +1,12 @@
 const assert = require('chai').assert;
 const controlador = require("../src/controlador.js");
 const datos_prueba = require("./datos.js");
+const mongoose = require("../src/db.js");
 
+after(function(done){
+    mongoose.mongoose_db.close();
+    done();
+});
 
 describe('Test de inserción de ciudad.', ()=>{
     it('La inserción de una ciudad debe retornar {}', function(done){
