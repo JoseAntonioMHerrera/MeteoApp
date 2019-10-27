@@ -13,6 +13,11 @@ const ciudad_model = require('../models/ciudad_model');
 
 const controlador = require("./controlador.js");
 
+let interfaz = "localhost";
+
+if(process.env.NODE_ENV == "docker")
+    interfaz = "0.0.0.0";
+
 process.title = "meteoapp";
 
 const optswagger = {
@@ -25,7 +30,7 @@ const optswagger = {
 }
 
 const server = new hapi.server({
-    "host":"localhost",
+    "host": "localhost",
     "port": 3000
 });
 
@@ -45,11 +50,6 @@ server.register([
     });
 });
 
-/*
-* GET /ciudad/{ciudad}/{anio} devuelve todos las temperaturas de la ciudad = {ciudad} en el año = {anio}
-* ISSUE: response IS NOT A FUNCTION
-*/
-
 server.route({
     method: "GET",
     path: "/meteo/{ciudad}",
@@ -61,19 +61,25 @@ server.route({
             params:{
                 ciudad: Joi.string().min(3)
             }
-        },response:{
-            schema: ciudad.ciudad_schema
         }
     },
     handler: async (request,h) => {
-        var ciudad = await controlador.peticionCiudad(request.params.ciudad);
-        if(ciudad != null){
-            return h.response(ciudad).code(200);
-        }else{
-            return h.response().code(404);
+        try{
+            var resultado_peticion = await controlador.peticionCiudad(request.params.ciudad);
+
+            if(resultado_peticion != null){
+                console.log(resultado_peticion);
+                return h.response(resultado_peticion).code(200);
+            }else{
+                return h.response().code(404);
+            }
+        }catch(error){
+            console.log(error);
+            return h.response().code(500);
         }
     }
 });
+
 
 server.route({
     method: "GET",
@@ -87,26 +93,22 @@ server.route({
                 ciudad: Joi.string().min(3),
                 anio: Joi.number().integer().min(2000)
             }
-        },
-        response:{
-            schema: anio.anio_schema
-        },
+        }
     },
     handler: async (request,h) => {
-        temperaturas_ciudad_anio = await controlador.peticionCiudad(request.params.ciud, request.params.anio);
-        if(temperaturas_ciudad_anio != null){
-            return h.response(temperaturas_ciudad_anio).code(200);
-        }else{
-            return h.response().code(404);
-        }
+        try{
+            let resultado_peticion = await controlador.peticionAnio(request.params.ciudad, request.params.anio);
+            if(resultado_peticion != null){
+                return h.response(resultado_peticion).code(200);
+            }else{
+                return h.response().code(404);
+            }
+        }catch(error){
+            console.log(error);
+            return h.response().code(500);
+        }   
     }
 });
-
-
-/*
-* GET /ciudad/{ciudad}/{anio}/{mes} devuelve todos las temperaturas de la ciudad = {ciudad} en el año = {anio} en el mes = {mes}
-*
-*/
 
 server.route({
     method: "GET",
@@ -121,25 +123,22 @@ server.route({
                 anio: Joi.number().integer().min(2000),
                 mes: Joi.number().integer().min(1).max(12)
             }
-        },
-        response: {
-            schema: mes.mes_schema
         }
     },
     handler: async (request, h) => {
-        temperaturas_ciudad_mes = await controlador.peticionMes(request.params.ciudad, request.params.anio, request.params.mes);
-        if(temperaturas_ciudad_mes != null){
-            return h.response(temperaturas_ciudad_mes).code(200);
-        }else{
-            return h.response().code(404);
+        try{
+            let resultado_peticion = await controlador.peticionMes(request.params.ciudad, request.params.anio, request.params.mes);
+            if(resultado_peticion != null){
+                return h.response(resultado_peticion).code(200);
+            }else{
+                return h.response().code(404);
+            }
+        }catch(error){
+            console.log(error);
+            return h.response().code(500);
         }
     }
 });
-
-/*
-* GET /ciudad/{ciudad}/{anio}/{mes} devuelve todos las temperaturas de la ciudad = {ciudad} en el año = {anio} en el mes = {mes} en el día = {dia}
-*
-*/
 
 server.route({
     method: "GET",
@@ -155,25 +154,22 @@ server.route({
                 mes: Joi.number().integer().min(1).max(12),
                 dia: Joi.number().integer().min(1).max(31)
             }
-        },
-        response: {
-            schema: dia.dia_schema
         }
     },
     handler: async (request, h) => {
-        temperaturas_ciudad_dia = await controlador.peticionDia(request.params.ciudad, request.params.anio, request.params.mes, request.params.dia);
-        if(temperaturas_ciudad_dia != null){
-            return h.response(temperaturas_ciudad_dia).code(200);
-        }else{
-            return h.response().code(404);
+        try{
+            let resultado_peticion = await controlador.peticionDia(request.params.ciudad, request.params.anio, request.params.mes, request.params.dia);
+            if(resultado_peticion != null){
+                return h.response(resultado_peticion).code(200);
+            }else{
+                return h.response().code(404);
+            }
+        }catch(error){
+            console.log(error);
+            return h.response().code(500);
         }
     }
 });
-
-/*
-*
-* POST /ciudad/nuevo añade una ciudad vacia a la base de datos
-*/
 
 server.route({
     method: "POST",
@@ -189,19 +185,19 @@ server.route({
         }
     },
     handler: async (request, h) => {
-        resultado = await controlador.insertarCiudad(request.payload.ciudad);
-        if(resultado.error){
-            return h.response(resultado).code(400);
-        }else{
-            return h.response().code(201);
+        try{
+            resultado_insercion = await controlador.insertarCiudad(request.payload.ciudad);
+            if(resultado_insercion.error){
+                return h.response(resultado_insercion.value).code(400);
+            }else{
+                return h.response().code(201);
+            }
+        }catch(error){
+            console.log(error);
+            return h.response().code(500);
         }
     }
 });
-
-/*
-*
-* POST /ciudad/nuevo añade una ciudad vacia a la base de datos
-*/
 
 server.route({
     method: "POST",
@@ -217,19 +213,19 @@ server.route({
         }
     },
     handler: async (request,h) => {
-        resultado= await controlador.insertarAnio(request.payload.anio);
-        if(resultado.error){
-            return h.response(resultado).code(400);
-        }else{
-            return h.response().code(201);
+        try{
+            resultado_insercion = await controlador.insertarAnio(request.payload.anio);
+            if(resultado_insercion.error){
+                return h.response(resultado_insercion.value).code(400);
+            }else{
+                return h.response().code(201);
+            }
+        }catch(error){
+            console.log(error);
+            return h.response().code(500);
         }
     }
 });
-
-/*
-*
-* POST /ciudad/mes/nuevo añade las temperaturas de un mes a un año y una ciudad concretos
-*/
 
 server.route({
     method: "POST",
@@ -245,20 +241,20 @@ server.route({
         }
     },
     handler: async (request,h) => {
-        resultado = await controlador.insertarMes(request.payload.mes);
-        if(resultado.error){
-            return h.response(resultado.value).code(400);
-        }else{
-            return h.response(resultado.value).code(201);
+        try{
+            resultado_insercion = await controlador.insertarMes(request.payload.mes);
+            if(resultado_insercion.error){
+                return h.response(resultado_insercion.value).code(400);
+            }else{
+                return h.response().code(201);
+            }
+        }catch(error){
+            console.log(error);
+            return h.response().code(500);
         }
-
     }
 });
 
-/*
-*
-* POST /ciudad/dia/nuevo añade las temperaturas de un día a un mes, año y ciudad concretos
-*/
 
 server.route({
     method: "POST",
@@ -274,11 +270,16 @@ server.route({
         }
     },
     handler: (request,h) => {
-        resultado= controlador.insertarDia(request.payload.dia);
-        if(resultado.error){
-            return h.response(resultado).code(400);
-        }else{
-            return h.response().code(201);
+        try{
+            resultado_insercion = controlador.insertarDia(request.payload.dia);
+            if(resultado_insercion.error){
+                return h.response(resultado_insercion.value).code(400);
+            }else{
+                return h.response().code(201);
+            }
+        }catch(error){
+            console.log(error);
+            return h.response().code(500);
         }
     }
 });
