@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/MeteoApp
     docker:
       - image: circleci/node:12.11.1
       - image: circleci/mongo:xenial
