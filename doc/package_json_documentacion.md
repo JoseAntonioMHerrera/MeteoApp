@@ -13,7 +13,8 @@ La herramienta de construcción de **npm** es package.json. Este archivo de conf
   "scripts": {
     "start": "node src/app.js",
     "test": "mocha -R spec",
-    "stop": "kill -2 $(pidof meteoapp)"
+    "stop": "kill -2 $(pidof meteoapp)",
+    "dev": "NODE_ENV=test nodemon --exec npm start"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,7 @@ La herramienta de construcción de **npm** es package.json. Este archivo de conf
   },
   "homepage": "https://github.com/JoseAntonioMHerrera/MeteoCheck#readme",
   "dependencies": {
-    "@hapi/hapi": "^18.3.2",
+    "@hapi/hapi": "^18.4.0",
     "@hapi/inert": "^5.2.2",
     "@hapi/joi": "^15.1.1",
     "@hapi/vision": "^5.5.4",
@@ -36,7 +37,8 @@ La herramienta de construcción de **npm** es package.json. Este archivo de conf
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4"
   }
 }
 ```
@@ -46,3 +48,15 @@ La herramienta de construcción de **npm** es package.json. Este archivo de conf
 **npm start**: Este comando nos permitirá lanzar la API REST. Para ello Se ha añadido la linea **"start": "node app.js"** a **scripts**. El archivo de javascript **app.js** es el entry-point de nuestro proyecto.
 
 **npm stop**: Este comando permite parar el proceso de node iniciado con **npm start**. Al proceso de la aplicación se le ha asignado un nombre con la linea **process.title = meteoapp**. De esta manera, y usando los comandos **pidof** y **kill** podemos parar el proceso a partir de su nombre. 
+
+**npm run dev**: Este comando nos permite lanzar el script **dev**, el cual define la variable NODE_ENV con valor test y ejecuta **nodemon**, un programa que permite la recarga automática del servidor cuando detecta cambios en los ficheros. El comando que ejecuta nodemon es **npm start**. La variable de entorno la usamos para usar una base de datos específica para tests.
+
+## Dependencias
+
+Las dependencias usadas son las necesarias para usar el framework de Hapi.js (**@hapi/hapi**), hacer uso de swagger con hapi, cargando los módulos necesarios para servir contenido estático y templating (**@hapi/vision**,**@hapi/inert**,**hapi-swagger**), el uso de Joi para crear esquemas de JSON y poder validar el payload que recibe el servidor (**@hapi/joi**) y **mongoose**, la librería para MongoDB de javascript.
+
+## Dependencias Dev
+
+Aqui tenemos las dependencias necesarias para el testing de la API: **mocha** y **chai**, la primera el framework de testing que usaremos para testear la aplicación, la segunda para hacer uso de su libreria de assert, con la cual comprobaremos los objetos devueltos por los métodos a testear.
+
+Por otra parte, **nodemon** lo usaremos para que el servidor se recargue automaticamente con los cambios efectuados en los archivos.
