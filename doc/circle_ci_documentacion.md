@@ -12,6 +12,7 @@ jobs:
     working_directory: ~/MeteoApp
     docker:
       - image: circleci/node:12.11.1
+      - image: circleci/mongo:xenial
     steps:
     - checkout
     - run: npm install
@@ -19,5 +20,5 @@ jobs:
 
 ```
 
-En el archivo de configuración le decimos que nos lance un contenedor docker con nuestra versión de node, el directorio de trabajo que es el raiz de nuestro proyecto y por último le decimos que ejecute los comandos **npm install** y **npm test**, los cuales instalan las dependencias del proyecto y ejecutan los tests respectivamente.
+En el archivo de configuración le decimos que nos lance un contenedor docker con nuestra versión de **node** y otro con una imagen de **mongoDB**. El directorio de trabajo que es el raiz de nuestro proyecto y por último le decimos que ejecute los comandos **npm install** y **npm test**, los cuales instalan las dependencias del proyecto y ejecutan los tests respectivamente. El paso **checkout** se encarga de coger nuestro código para que CircleCI pueda hacer uso de el.
 
