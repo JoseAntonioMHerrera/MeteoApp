@@ -8,6 +8,7 @@ exports.peticionCiudad = async function(ciudad){
         if(error){
             resultado_busqueda = {'error': true, 'value': error};
         }
+        
     });
     return ciudad;
 };
@@ -19,11 +20,13 @@ exports.peticionAnio = async function(ciudad, num_anio){
             resultado_busqueda = {'error': true, 'value': error};
             return; 
         }
-        let i;
-        for(i=0; i < ciudad.anios.length; i++){
-            if(ciudad.anios[i].num_anio == num_anio){
-                resultado_busqueda = ciudad.anios[i];
-                return;
+        if(ciudad != null){
+            let i;
+            for(i=0; i < ciudad.anios.length; i++){
+                if(ciudad.anios[i].num_anio == num_anio){
+                    resultado_busqueda = ciudad.anios[i];
+                    return;
+                }
             }
         }
     });
@@ -38,14 +41,16 @@ exports.peticionMes = async function(ciudad, num_anio, num_mes){
             resultado_busqueda = {'error': true, 'value': error};
             return; 
         }
-        let i;
-        for(i=0; i < ciudad.anios.length; i++){
-            if(ciudad.anios[i].num_anio == num_anio){
-                let j;
-                for(j=0; j < ciudad.anios[i].meses.length; j++){
-                    if(ciudad.anios[i].meses[j].num_mes == num_mes){
-                        resultado_busqueda = ciudad.anios[i].meses[j];
-                        return;
+        if(ciudad != null){
+            let i;
+            for(i=0; i < ciudad.anios.length; i++){
+                if(ciudad.anios[i].num_anio == num_anio){
+                    let j;
+                    for(j=0; j < ciudad.anios[i].meses.length; j++){
+                        if(ciudad.anios[i].meses[j].num_mes == num_mes){
+                            resultado_busqueda = ciudad.anios[i].meses[j];
+                            return;
+                        }
                     }
                 }
             }
@@ -61,17 +66,19 @@ exports.peticionDia = async function(ciudad, num_anio, num_mes, num_dia){
             resultado_busqueda = {'error': true, 'value': error};
             return; 
         }
-        let i;
-        for(i=0; i < ciudad.anios.length; i++){
-            if(ciudad.anios[i].num_anio == num_anio){
-                let j;
-                for(j=0; j < ciudad.anios[i].meses.length; j++){
-                    if(ciudad.anios[i].meses[j].num_mes == num_mes){
-                        let k;
-                        for(k=0; k < ciudad.anios[i].meses[j].dias.length; k++){
-                            if(ciudad.anios[i].meses[j].dias[k].num_dia == num_dia){
-                                resultado_busqueda = ciudad.anios[i].meses[j].dias[k];
-                                return;
+        if(ciudad != null){
+            let i;
+            for(i=0; i < ciudad.anios.length; i++){
+                if(ciudad.anios[i].num_anio == num_anio){
+                    let j;
+                    for(j=0; j < ciudad.anios[i].meses.length; j++){
+                        if(ciudad.anios[i].meses[j].num_mes == num_mes){
+                            let k;
+                            for(k=0; k < ciudad.anios[i].meses[j].dias.length; k++){
+                                if(ciudad.anios[i].meses[j].dias[k].num_dia == num_dia){
+                                    resultado_busqueda = ciudad.anios[i].meses[j].dias[k];
+                                    return;
+                                }
                             }
                         }
                     }
