@@ -76,10 +76,9 @@ server.route({
             var resultado_peticion = await controlador.peticionCiudad(request.params.ciudad);
 
             if(resultado_peticion != null){
-                console.log(resultado_peticion);
                 return h.response(resultado_peticion).code(200);
             }else{
-                return h.response().code(404);
+                return h.response("No existe la ciudad.").code(404);
             }
         }catch(error){
             console.log(error);
@@ -109,7 +108,7 @@ server.route({
             if(resultado_peticion != null){
                 return h.response(resultado_peticion).code(200);
             }else{
-                return h.response().code(404);
+                return h.response("No existe el año.").code(404);
             }
         }catch(error){
             console.log(error);
@@ -139,7 +138,7 @@ server.route({
             if(resultado_peticion != null){
                 return h.response(resultado_peticion).code(200);
             }else{
-                return h.response().code(404);
+                return h.response("No existe el mes.").code(404);
             }
         }catch(error){
             console.log(error);
@@ -170,7 +169,7 @@ server.route({
             if(resultado_peticion != null){
                 return h.response(resultado_peticion).code(200);
             }else{
-                return h.response().code(404);
+                return h.response("No existe el día.").code(404);
             }
         }catch(error){
             console.log(error);
