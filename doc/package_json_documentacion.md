@@ -11,9 +11,11 @@ La herramienta de construcción de **npm** es package.json. Este archivo de conf
   "description": "Microservicio que ofrece datos meteorológicos por horas y días en las distintas regiones.",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js",
+    "start": "pm2 start src/app.js --name meteoapp",
+    "restart": "pm2 restart meteoapp",
+    "reload": "pm2 reload meteoapp",
     "test": "mocha -R spec",
-    "stop": "kill -2 $(pidof meteoapp)",
+    "stop": "pm2 stop meteoapp",
     "dev": "NODE_ENV=test nodemon --exec npm start"
   },
   "repository": {
@@ -37,19 +39,27 @@ La herramienta de construcción de **npm** es package.json. Este archivo de conf
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "grunt": "^1.0.4",
+    "grunt-cli": "^1.3.2",
+    "grunt-shell-spawn": "^0.4.0",
     "mocha": "^6.2.2",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "pm2": "^4.1.2"
   }
 }
 ```
 
-**npm test**: Este comando nos ejecutará los tests del proyecto. Se ha seleccionado la libreria de **jest** basada en javascript por su facilidad de uso, alta compatibilidad con diferentes entornos (Node, Vue, React, etc..) y porque se encarga de encontrar automaticamente los archivos de test bajo la raiz de tu proyecto y ejecutarlos. Se ha añadido la linea **"test": "jest"** a **scripts** para ejecutar los tests usando **npm test**. Como esta libreria solo tiene sentido a la hora de testear la API, sin valor final a la hora de desplegar la aplicación, se ha añadido a las **"devDepencies"** para evitar la descarga de dichos módulos con **npm install**.
+**npm test**: Este comando nos ejecutará los tests del proyecto. Se ha seleccionado la libreria de **mocha** basada en javascript por su facilidad de uso, alta compatibilidad con diferentes entornos (Node, Vue, React, etc..) y porque se encarga de encontrar automaticamente los archivos de test bajo la raiz de tu proyecto y ejecutarlos. Se ha añadido la linea **"test": "mocha"** a **scripts** para ejecutar los tests usando **npm test**. Como esta libreria solo tiene sentido a la hora de testear la API, sin valor final a la hora de desplegar la aplicación, se ha añadido a las **"devDepencies"** para evitar la descarga de dichos módulos con **npm install**.
 
-**npm start**: Este comando nos permitirá lanzar la API REST. Para ello Se ha añadido la linea **"start": "node app.js"** a **scripts**. El archivo de javascript **app.js** es el entry-point de nuestro proyecto.
+**npm start**: Este comando nos permitirá lanzar la API REST. Para ello Se ha añadido la linea **"start": "pm2 start src/app.js --name meteoapp"** a **scripts**. El archivo de javascript **src/app.js** es el entry-point de nuestro proyecto. **pm2** es el comando que usaremos para gestionar el proceso del servidor. Con *start* le indicamos que arranque el proceso y le asignamos un nombre con *--name* para posteriores gestiones.
 
-**npm stop**: Este comando permite parar el proceso de node iniciado con **npm start**. Al proceso de la aplicación se le ha asignado un nombre con la linea **process.title = meteoapp**. De esta manera, y usando los comandos **pidof** y **kill** podemos parar el proceso a partir de su nombre. 
+**npm stop**: Este comando permite parar el proceso de node iniciado con **npm start**. Al proceso de la aplicación se le ha asignado un nombre con la linea **--name meteoapp** que se encuentra en el comando **npm start**. De esta manera,  con **pm2 stop meteoapp** paramos la aplicación. 
 
 **npm run dev**: Este comando nos permite lanzar el script **dev**, el cual define la variable NODE_ENV con valor test y ejecuta **nodemon**, un programa que permite la recarga automática del servidor cuando detecta cambios en los ficheros. El comando que ejecuta nodemon es **npm start**. La variable de entorno la usamos para usar una base de datos específica para tests.
+
+**npm restart**: Este comando nos permite reiniciar el servicio mediante **pm2 restart meteoapp**
+
+**npm run reload**: Este comando nos permite recargar el servicio sin necesidad de eliminarlo completamente, a diferencia de restart.
 
 ## Dependencias
 
