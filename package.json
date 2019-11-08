@@ -4,9 +4,11 @@
   "description": "Microservicio que ofrece datos meteorológicos por horas y días en las distintas regiones.",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js",
+    "start": "pm2 start src/app.js --name meteoapp",
+    "restart": "pm2 restart meteoapp",
+    "reload": "pm2 reload meteoapp",
     "test": "mocha -R spec",
-    "stop": "kill -2 $(pidof meteoapp)",
+    "stop": "pm2 stop meteoapp",
     "dev": "NODE_ENV=test nodemon --exec npm start"
   },
   "repository": {
@@ -31,6 +33,8 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "grunt": "^1.0.4",
+    "grunt-cli": "^1.3.2",
+    "grunt-shell-spawn": "^0.4.0",
     "mocha": "^6.2.2",
     "nodemon": "^1.19.4",
     "pm2": "^4.1.2"
