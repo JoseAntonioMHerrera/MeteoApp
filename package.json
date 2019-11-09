@@ -4,9 +4,8 @@
   "description": "Microservicio que ofrece datos meteorológicos por horas y días en las distintas regiones.",
   "main": "src/app.js",
   "scripts": {
-    "start": "pm2 start src/app.js --name meteoapp",
+    "start": "pm2 start src/app.js --name meteoapp -i max",
     "restart": "pm2 restart meteoapp",
-    "reload": "pm2 reload meteoapp",
     "test": "mocha -R spec",
     "stop": "pm2 stop meteoapp",
     "dev": "NODE_ENV=test nodemon --exec npm start"
