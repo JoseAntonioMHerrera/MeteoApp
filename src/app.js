@@ -15,10 +15,15 @@ const controlador = require("./controlador.js");
 
 let interfaz = "localhost";
 
-if(process.env.NODE_ENV == "docker")
+if(process.env.NODE_ENV == "docker"){
     interfaz = "0.0.0.0";
+}
 
 process.title = "meteoapp";
+puerto = 3000
+
+if(process.env.NODE_ENV == "heroku")
+    puerto = process.env.port
 
 const optswagger = {
     info:{
@@ -31,7 +36,7 @@ const optswagger = {
 
 const server = new hapi.server({
     "host": "localhost",
-    "port": 3000
+    "port": puerto
 });
 
 server.register([
