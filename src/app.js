@@ -25,6 +25,8 @@ puerto = 3000
 if(process.env.NODE_ENV == "heroku")
     puerto = process.env.PORT
 
+console.log("Este es el puerto " + puerto)
+
 const optswagger = {
     info:{
         title: "Documentación MeteoApp API",
