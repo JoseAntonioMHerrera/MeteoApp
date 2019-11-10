@@ -4,6 +4,7 @@
   "description": "Microservicio que ofrece datos meteorológicos por horas y días en las distintas regiones.",
   "main": "src/app.js",
   "scripts": {
+    "start-on-heroku": "pm2-runtime start src/app.js --name meteoapp -i 2",
     "start": "pm2 start src/app.js --name meteoapp -i 2",
     "restart": "pm2 restart meteoapp",
     "test": "mocha -R spec",
