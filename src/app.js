@@ -23,7 +23,7 @@ process.title = "meteoapp";
 puerto = 3000
 
 if(process.env.NODE_ENV == "heroku")
-    puerto = process.env.port
+    puerto = process.env.PORT
 
 const optswagger = {
     info:{
