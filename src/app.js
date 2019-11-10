@@ -22,10 +22,10 @@ if(process.env.NODE_ENV == "docker"){
 process.title = "meteoapp";
 puerto = 3000
 
-if(process.env.NODE_ENV == "heroku")
+if(process.env.NODE_ENV == "heroku"){
     puerto = process.env.PORT
-
-console.log("Este es el puerto " + puerto)
+    interfaz = "0.0.0.0"
+}
 
 const optswagger = {
     info:{
@@ -37,7 +37,7 @@ const optswagger = {
 }
 
 const server = new hapi.server({
-    "host": "localhost",
+    "host": interfaz,
     "port": puerto
 });
 
