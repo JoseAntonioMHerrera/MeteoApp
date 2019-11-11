@@ -4,14 +4,14 @@ const vision = require("@hapi/vision");
 const hapiswagger = require("hapi-swagger");
 const Joi = require("@hapi/joi");
 
-const ciudad = require("./ciudad-schema");
-const dia = require("./dia-schema");
-const mes = require("./mes-schema");
-const anio = require("./anio_schema");
+const ciudad = require("./src/ciudad-schema");
+const dia = require("./src/dia-schema");
+const mes = require("./src/mes-schema");
+const anio = require("./src/anio_schema");
 
-const ciudad_model = require('../models/ciudad_model');
+const ciudad_model = require('./models/ciudad_model');
 
-const controlador = require("./controlador.js");
+const controlador = require("./src/controlador.js");
 
 let interfaz = "localhost";
 
