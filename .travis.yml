@@ -11,6 +11,6 @@ script:
   - npm test
 deploy:
   provider: azure_web_apps
-  username: USERNAME
-  password: PASSWORD
-  site: DEPLOYMENT_SITE
+  username: AZURE_WA_USERNAME
+  password: AZURE_WA_PASSWORD
+  site: AZURE_WA_SITE
