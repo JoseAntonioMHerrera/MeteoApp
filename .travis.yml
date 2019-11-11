@@ -1,8 +1,18 @@
 language: node_js
-node_js: "stable"
+node_js: 
+  - "stable"
+  - "6"
+  - "8"
+  - "10"
+  - "12"
 services:
   - mongodb
 install:
   - npm install
 script:
   - npm test
+deploy:
+  provider: azure_web_apps
+  username: USERNAME
+  password: PASSWORD
+  site: DEPLOYMENT_SITE
