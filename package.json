@@ -4,7 +4,7 @@
   "description": "Microservicio que ofrece datos meteorológicos por horas y días en las distintas regiones.",
   "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "gulp start",
     "test": "mocha -R spec",
     "dev": "NODE_ENV=test nodemon --exec npm start"
   },
@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/JoseAntonioMHerrera/MeteoCheck#readme",
   "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-shell": "^0.7.1",
     "@hapi/hapi": "^18.4.0",
     "@hapi/inert": "^5.2.2",
     "@hapi/joi": "^15.1.1",
