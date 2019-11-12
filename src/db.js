@@ -7,8 +7,10 @@ if(process.env.NODE_ENV == "docker")
 else if(process.env.NODE_ENV == "test")
     url_conexion='mongodb://localhost/meteoDBtest';
 else if(process.env.NODE_ENV == "production"){
-    url_conexion= process.env.DB_CONN;
+    url_conexion= process.env.DB_CONN;1
 }
+
+console.error("La cadena de conexión es: " + url_conexion)
 
 mongoose.connect(url_conexion,{ useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify:false });
 
