@@ -1,5 +1,6 @@
 var gulp = require('gulp')
 var pm2 = require('pm2')
+var shell = require('gulp-shell')
 
 gulp.task('start', function(){
     pm2.connect(true, function(){
