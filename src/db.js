@@ -10,8 +10,6 @@ else if(process.env.NODE_ENV == "production"){
     url_conexion= process.env.DB_CONN;1
 }
 
-console.error("La cadena de conexión es: " + url_conexion)
-
 mongoose.connect(url_conexion,{ useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify:false });
 
 var db = mongoose.connection;
