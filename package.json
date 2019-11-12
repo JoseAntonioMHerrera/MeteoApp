@@ -2,7 +2,7 @@
   "name": "MeteoApp",
   "version": "1.0.0",
   "description": "Microservicio que ofrece datos meteorológicos por horas y días en las distintas regiones.",
-  "main": "src/app.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "mocha -R spec",
