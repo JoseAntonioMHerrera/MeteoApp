@@ -9,7 +9,7 @@
     "dev": "NODE_ENV=test nodemon --exec npm start"
   },
   "engines":{
-    "node":"v12.11.1",
+    "node":">v10.0.0",
     "npm": "6.12.0"
   },
   "repository": {
