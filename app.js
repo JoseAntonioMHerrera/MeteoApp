@@ -15,14 +15,10 @@ const controlador = require("./src/controlador.js");
 
 let interfaz = "localhost";
 
-if(process.env.NODE_ENV == "docker"){
-    interfaz = "0.0.0.0";
-}
-
 process.title = "meteoapp";
 puerto = 3000
 
-if(process.env.NODE_ENV == "heroku"){
+if(process.env.NODE_ENV == "production"){
     puerto = process.env.PORT
     interfaz = "0.0.0.0"
 }
