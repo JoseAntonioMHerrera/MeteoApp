@@ -16,10 +16,17 @@ Documentación referente a las tecnologías usadas:
 * [Documentación de modelos y esquemas](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/modelos_esquemas_documentacion.md).
 * [Documentación de package.json](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/package_json_documentacion.md).
 * [Documentación de Mocha tests](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/mocha_test_documentacion.md).
+* [Documentación PaaS](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/paas_documentacion.md)
 
 ## Buildtool
 
 ```
 buildtool: package.json
 
+```
+
+## Despliegue
+
+```
+Despliegue: https://meteoapp20360.herokuapp.com/
 ```
