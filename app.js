@@ -54,6 +54,14 @@ server.register([
 });
 
 server.route({
+    method:"GET",
+    path:"/",
+    handler: (request,h) =>{
+        return h.response("MeteoApp API - Temperaturas a nivel nacional por ciudad")
+    }
+})
+
+server.route({
     method: "GET",
     path: "/status",
     handler: (request,h) =>{
