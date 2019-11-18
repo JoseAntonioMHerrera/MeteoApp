@@ -2,6 +2,22 @@
 [![CircleCI](https://circleci.com/gh/JoseAntonioMHerrera/MeteoApp.svg?style=svg)](https://circleci.com/gh/JoseAntonioMHerrera/MeteoApp)
 # MeteoApp
 
+## Descripción general
+
+Este microservicio ofrece el conjunto de operaciones CRUD (Create, Read, Update, Delete) para el manejo de datos metereológicos en las distintas ciudades del país. El objetivo es ofrecer una servicio API RESTful que otorgue el acceso a estos datos de forma pública, así como su edición. Estos datos se proporcionará en formato JSON para un manejo facil de los mismos por parte del usuario. Idealmente, este microservicio formaría parte de una infraestructura mas grande donde los usuarios podrían bien ser otros microservicios que podrían formar parte tanto como origen de los datos como servidores de los mismos.
+
+## Guía de instalación
+
+```
+git clone https://github.com/JoseAntonioMHerrera/MeteoApp
+
+cd MeteoApp/
+
+npm install
+
+npm start
+```
+
 ## Documentación
 
 Documentación general del proyecto:
@@ -28,5 +44,5 @@ buildtool: package.json
 ## Despliegue
 
 ```
-Despliegue: https://meteoapp20360.herokuapp.com/
+Despliegue: https://meteoapp20360.azurewebsites.net/status
 ```
