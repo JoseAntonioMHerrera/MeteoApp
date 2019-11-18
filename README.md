@@ -44,5 +44,5 @@ buildtool: package.json
 ## Despliegue
 
 ```
-Despliegue: https://meteoapp20360.azurewebsites.net/status
+Despliegue: https://meteoapp20360.azurewebsites.net/
 ```
