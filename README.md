@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/JoseAntonioMHerrera/MeteoApp.svg?branch=master)](https://travis-ci.org/JoseAntonioMHerrera/MeteoApp)
 [![CircleCI](https://circleci.com/gh/JoseAntonioMHerrera/MeteoApp.svg?style=svg)](https://circleci.com/gh/JoseAntonioMHerrera/MeteoApp)
-[![Build Status](https://dev.azure.com/jamh1/MeteoApp/_apis/build/status/meteoappv5%20-%20CI?branchName=master)](https://dev.azure.com/jamh1/MeteoApp/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://dev.azure.com/jamh1/MeteoApp/_apis/build/status/meteoappv5%20-%20CI?branchName=master)](https://dev.azure.com/jamh1/MeteoApp/_apis/build/status/meteoappv5%20-%20CI?branchName=master&jobName=Build)
 # MeteoApp
 
 ## Descripción general
