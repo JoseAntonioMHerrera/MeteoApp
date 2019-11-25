@@ -16,12 +16,12 @@ const controlador = require("./src/controlador.js");
 let interfaz = "localhost";
 
 process.title = "meteoapp";
-puerto = 3000
 
 if(process.env.NODE_ENV == "production"){
-    puerto = process.env.PORT
     interfaz = "0.0.0.0"
+    puerto = process.env.PORT
 }
+    
 
 const optswagger = {
     info:{
@@ -65,7 +65,8 @@ server.route({
     method: "GET",
     path: "/status",
     handler: (request,h) =>{
-        return h.response({"status":"OK", "ejemplo":{"ruta":"/meteo/Granada","resultado":{"ciudad":"Granada","anios":[{"meses":[{"dias":[{"temperaturas":{"hora_08":6,"hora_14":6,"hora_21":6},"_id":"5dcb2aee0d7ced00175ff196","num_dia":23}],"_id":"5dcb2aee0d7ced00175ff195","num_mes":12}],"_id":"5dcb2aee0d7ced00175ff194","num_anio":2019}],"__v":0}}});
+//        return h.response({"status":"OK", "ejemplo":{"ruta":"/meteo/Granada","resultado":{"ciudad":"Granada","anios":[{"meses":[{"dias":[{"temperaturas":{"hora_08":6,"hora_14":6,"hora_21":6},"_id":"5dcb2aee0d7ced00175ff196","num_dia":23}],"_id":"5dcb2aee0d7ced00175ff195","num_mes":12}],"_id":"5dcb2aee0d7ced00175ff194","num_anio":2019}],"__v":0}}});
+	  return "Testing"
     }
 });
 
