@@ -13,14 +13,12 @@ const ciudad_model = require('./models/ciudad_model');
 
 const controlador = require("./src/controlador.js");
 
-let interfaz = "localhost";
+let interfaz = "0.0.0.0"
 
 process.title = "meteoapp";
 
-if(process.env.NODE_ENV == "production"){
-    interfaz = "0.0.0.0"
-    puerto = process.env.PORT
-}
+puerto = process.env.PORT
+
     
 
 const optswagger = {
@@ -57,7 +55,7 @@ server.route({
     method:"GET",
     path:"/",
     handler: (request,h) =>{
-        return h.response("MeteoApp API - Temperaturas a nivel nacional por ciudad")
+        return h.response("MeteoApp API - Temperaturas a nivel nacional por ciudad, testeando CI de Azure")
     }
 })
 
