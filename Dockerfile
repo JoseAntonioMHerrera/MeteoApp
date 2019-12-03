@@ -3,10 +3,16 @@ WORKDIR ./MeteoApp
 
 COPY package*.json ./
 
+ENV NODE_ENV=production
+ENV PORT=8000
 RUN npm install
 
-COPY . .
+COPY app.js ./
+COPY /src/ ./
+COPY /models/ ./
+COPY /test/ ./
+COPY gulpfile.js ./
 
-EXPOSE 3000
+EXPOSE 8000
 
 CMD ["npm","start"]
