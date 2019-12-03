@@ -7,11 +7,11 @@ ENV NODE_ENV=production
 ENV PORT=8000
 RUN npm install
 
-COPY app.js ./
-COPY /src/ ./
-COPY /models/ ./
-COPY /test/ ./
-COPY gulpfile.js ./
+COPY app.js .
+COPY /src/ ./src/
+COPY /models/ ./models/
+COPY /test/ ./test/
+COPY gulpfile.js .
 
 EXPOSE 8000
 
