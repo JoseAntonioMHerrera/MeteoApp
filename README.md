@@ -43,9 +43,14 @@ Documentación referente a las tecnologías usadas:
 buildtool: package.json
 
 ```
+## Despliegue
+
+```
+Despliegue: https://meteoapp20360.azurewebsites.net/
+```
 
 ## Despliegue con Docker
 
 ```
-Contenedor: https://meteoapp.azurewebsites.net
+Contenedor: https://meteoapp.azurewebsites.net/
 ```
