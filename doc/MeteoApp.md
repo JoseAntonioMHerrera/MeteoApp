@@ -1,19 +1,3 @@
-## Descripción general
-
-Este microservicio ofrece el conjunto de operaciones CRUD (Create, Read, Update, Delete) para el manejo de datos metereológicos en las distintas ciudades del país. El objetivo es ofrecer una servicio API RESTful que otorgue el acceso a estos datos de forma pública, así como su edición. Estos datos se proporcionará en formato JSON para un manejo facil de los mismos por parte del usuario. Idealmente, este microservicio formaría parte de una infraestructura mas grande donde los usuarios podrían bien ser otros microservicios que podrían formar parte tanto como origen de los datos como servidores de los mismos.
-
-## Guía de instalación
-
-```
-git clone https://github.com/JoseAntonioMHerrera/MeteoApp
-
-cd MeteoApp/
-
-npm install
-
-npm start
-```
-
 ## Tecnologías
 
 * **Javascript**: Lenguaje de programación.
@@ -40,3 +24,5 @@ El siguiente enlace lleva a la [documentación de package.json](https://github.c
 * [Documentación de modelos y esquemas](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/modelos_esquemas_documentacion.md).
 * [Documentación de package.json](https://github.com/JoseAntonioMHerrera/MeteoApp/doc/package_json_documentacion.md).
 * [Documentación de Mocha tests](https://github.com/JoseAntonioMHerrera/MeteoApp/doc/mocha_test_documentacion.md).
+* [Documentación PaaS](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/paas_documentacion.md)
+* [Documentación PaaS y Docker](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/paas_docker_documentacion.md)
