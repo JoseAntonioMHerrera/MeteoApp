@@ -1,6 +1,6 @@
 # Despliegue en Azure: Dockers
 
-En el presente documento vamos a exponer una serie de pasos para conseguir levantar una imagen de docker sirviendo nuestro actual proyecto. Remítase a la documentación del [Dockerfile](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/paas_docker_documentacion.md) para ver la estructura del Dockerfile usado.
+En el presente documento vamos a exponer una serie de pasos para conseguir levantar una imagen de docker sirviendo nuestro actual proyecto. Remítase a la documentación del [Dockerfile](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/docker_documentacion.md) para ver la estructura del Dockerfile usado.
 
 ## Pasos para la creación de la infraestructura
 
