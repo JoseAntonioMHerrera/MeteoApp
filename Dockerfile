@@ -1,6 +1,5 @@
 FROM node:12
 WORKDIR ./MeteoApp
-
 COPY package*.json ./
 
 ENV NODE_ENV=production
