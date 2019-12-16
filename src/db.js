@@ -8,6 +8,8 @@ else if(process.env.NODE_ENV == "test")
     url_conexion='mongodb://localhost/meteoDBtest';
 else if(process.env.NODE_ENV == "production"){
     url_conexion= process.env.DB_CONN;
+}else{
+    url_conexion="mongodb+srv://meteo:123meteo456@meteoappcluster-eaqjp.azure.mongodb.net/test?retryWrites=true"
 }
 
 mongoose.connect(url_conexion,{ useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify:false });
