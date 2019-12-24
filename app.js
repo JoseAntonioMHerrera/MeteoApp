@@ -17,7 +17,10 @@ let interfaz = "0.0.0.0"
 
 process.title = "meteoapp";
 
-puerto = process.env.PORT
+if('PORT' in process.env)
+    puerto = process.env.PORT
+else
+    puerto = 8000
 
     
 
