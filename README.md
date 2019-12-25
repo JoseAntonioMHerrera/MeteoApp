@@ -36,12 +36,13 @@ Documentación referente a las tecnologías usadas:
 * [Documentación Dockerfile](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/docker_documentacion.md)
 * [Documentación PaaS](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/paas_documentacion.md)
 * [Documentación PaaS y Docker](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/paas_docker_documentacion.md)
+* [Documentación Ansible](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/ansible_documentacion.md)
+* [Documentación Vagrant](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/vagrant_documentacion.md)
 
 ## Buildtool
 
 ```
 buildtool: package.json
-
 ```
 ## Despliegue
 
@@ -58,4 +59,10 @@ Contenedor: https://meteoapp.azurewebsites.net/
 ## Dockerhub
 ```
 Dockerhub: https://hub.docker.com/r/meteoapp/meteoapp
+```
+
+## Ansible
+
+```
+Provision: vagrant/ansible/playbook.yml
 ```
