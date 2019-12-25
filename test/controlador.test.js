@@ -35,7 +35,7 @@ describe('Test de inserción de ciudad.', ()=>{
         });
     });   
 });
-/*
+
 describe('Test de inserción de año.', ()=> {
     it('La inserción de un año debe retornar {}', function(done){
         let promesa_insercion_anio = controlador.insertarAnio(datos_prueba.temperaturas_granada_2018);
@@ -50,7 +50,7 @@ describe('Test de inserción de año.', ()=> {
         });
     });
 });
-
+/*
 describe('Test de inserción de mes', ()=>{
     it('La inserción de un mes debe retornar {}', function(done){
         let promesa_respuesta = controlador.insertarMes(datos_prueba.temperaturas_granada_2018_mes_11);
@@ -80,7 +80,7 @@ describe('Test de inserción de día', ()=>{
         });
     });
 });
-*/
+
 describe('Test de lectura de ciudad.', ()=>{
     it('La lectura de una ciudad no debe ser null', function(done){
         let promesa_respuesta = controlador.peticionCiudad(datos_prueba.granada);
@@ -150,7 +150,7 @@ describe('Test de edición de ciudad.', ()=>{
         });
     });   
 });
-/*
+
 describe('Test de edición de año.', ()=> {
     it('La edición de un año debe retornar {}', function(done){
         let promesa_respuesta = controlador.actualizarAnio(datos_prueba.temperaturas_granada_2018_2);
@@ -164,7 +164,7 @@ describe('Test de edición de año.', ()=> {
         });
     });
 });
-
+/*
 describe('Test de edición de mes', ()=>{
     it('La edición de un mes debe retornar {}', function(done){
         let promesa_respuesta = controlador.actualizarMes(datos_prueba.temperaturas_granada_2018_mes_11_2);
@@ -220,6 +220,7 @@ describe('Test de eliminación de mes', ()=>{
         });
     });
 });
+*/
 
 describe('Test de eliminación de año.', ()=> {
     it('La eliminación de un año debe retornar {}', function(done){
@@ -233,7 +234,7 @@ describe('Test de eliminación de año.', ()=> {
             }
         });
     });
-});*/
+});
 
 describe('Test de eliminación de ciudad.', ()=>{
     it('La eliminación de una ciudad debe retornar {}', function(done){
