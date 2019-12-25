@@ -102,3 +102,12 @@ En el rol dependencies vamos a instalar las dependencias generales que necesitam
 ```
 
 Por último, este rol se encargará de upgradear los paquetes del sistema a sus últimas versiones, tanto la versión de la distribución actual si hubiera una superior y la de los paquetes.
+
+# Bibliografía
+
+- https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html
+- https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html
+- https://docs.ansible.com/ansible/2.5/modules/npm_module
+- https://docs.ansible.com/ansible/latest/modules/apt_module.html
+- https://ncora.proyectos-royal.es/como-se-usan-los-roles-y-playbooks-en-ansible/
+- https://docs.ansible.com/ansible/latest/scenario_guides/guide_vagrant.html
