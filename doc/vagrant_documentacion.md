@@ -65,5 +65,12 @@ Los elementos fundamentales que explican la función de este vagrantfile son los
 - **config.vm.provider**: el proveedor que va a correr la vm y que albergará las configuraciones que hagamos. En nuestro caso, cosas como **v.name**, **v.memory** o **v.cpus** que se dan nombre, memoria y número de cpus de nuestra máquina. Con **v.customize** le decimos en nuestro caso que use la entrada/salida
 - **config.vm.hostname**: le asignamos el nombre de nuestro microservicio a nuestro host en la máquina virtual
 - **config.vm.network**: asignamos una ip a la máquina virtual dentro de la red privada de nuestra máquina.
-- **config.vm.define**: con esta linea podemos proporcionar un nombre a la máquina virtual.
-- **config.vm.provision**: le decimos la herramienta de provisionamiento que vamos a usar, en nuestro caso ansible. La opción mas destacable es **ansible.playbook**, donde indicamos el playbook de ansible, lo cual es una forma de configuración que nos permite el despliegue y el manejo de la configuración de las máquinas que queramos desplegar.
+- **config.vm.provision**: le decimos la herramienta de provisionamiento que vamos a usar, en nuestro caso ansible. La opción mas destacable es **ansible.playbook**, donde indicamos el playbook de ansible, lo cual es una forma de configuración que nos permite el despliegue y el manejo de la configuración de las máquinas que queramos desplegar. Indicamos también el path del archivo **inventory** y garantizamos permisos necesarios a Ansible para que ejecute las tareas.
+
+# Bibliografía
+
+- https://www.vagrantup.com/intro/getting-started/index.html
+- https://github.com/geerlingguy/ansible-vagrant-examples/tree/master/nodejs
+- https://www.middlewareinventory.com/blog/vagrant-ansible-example/
+- https://docs.ansible.com/ansible/latest/scenario_guides/guide_vagrant.html
+- https://www.inpimation.com/ansible-vagrant-beginners-guide/
