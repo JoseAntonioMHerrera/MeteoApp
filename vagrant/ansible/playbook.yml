@@ -1,0 +1,8 @@
+- hosts: meteoapp
+  become: true
+  roles:
+    - app
+    - clone
+    - common
+    - dependencies
+    - upgrade
