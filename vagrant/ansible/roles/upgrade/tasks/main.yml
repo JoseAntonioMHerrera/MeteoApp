@@ -1,0 +1,8 @@
+- name: Actualizar todos los paquetes
+  apt:
+    name: "*"
+    state: latest
+
+- name: Instalar nuevas versiones de paquetes
+  apt:
+    upgrade: dist

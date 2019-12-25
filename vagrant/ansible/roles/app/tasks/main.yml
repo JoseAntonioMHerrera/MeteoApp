@@ -1,0 +1,8 @@
+- name: Instalar dependencies de package.json
+  npm:
+    path: "/home/vagrant/meteoapp" 
+
+- name: Lanzar aplicacion
+  command: npm start
+  args:
+    chdir: "/home/vagrant/meteoapp"

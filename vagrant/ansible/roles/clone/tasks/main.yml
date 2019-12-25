@@ -1,0 +1,14 @@
+- name: Crear directorio para alojar la app
+  file:
+    path: "/home/vagrant/meteoapp"
+    state: directory
+
+- name: Clonar repositorio
+  git:
+    repo: https://github.com/JoseAntonioMHerrera/MeteoApp.git
+    dest: "/home/vagrant/meteoapp"
+
+- name: Instalar pm2
+  npm:
+    name: pm2
+    path: /home/vagrant/meteoapp
