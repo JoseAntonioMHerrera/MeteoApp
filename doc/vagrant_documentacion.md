@@ -18,9 +18,9 @@ Los tests se han llevado a cabo con **http-load**, con las siguientes opciones:
 
 Los resultados, respectivamente, son los siguientes:
 
-[](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/img/debianbuster10test.png)
-[](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/img/disco64test.png)
-[](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/img/ubuntubionic64test.png)
+![](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/img/debianbuster10test.png)
+![](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/img/disco64test.png)
+![](https://github.com/JoseAntonioMHerrera/MeteoApp/blob/master/doc/img/ubuntubionic64test.png)
 
 Como podemos observar, nuestra última opción tiene una media de respuesta menor, siendo esta 4.95.
 
